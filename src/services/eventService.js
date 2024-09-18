@@ -17,7 +17,7 @@ const eventService = {
         return newEvent
     },
 
-    async updateOne(data){
+    async updateOne(id, data){
         const newEvent = await eventModel.findOneAndUpdate({ _id: id }, data, { new: true })
         return newEvent
     },

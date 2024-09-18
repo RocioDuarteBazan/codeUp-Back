@@ -5,7 +5,7 @@ const eventRouter = express.Router()
 
 eventRouter.get("/", eventController.getAll)
 eventRouter.post("/", eventController.createOne)
-eventRouter.put("/", eventController.updateOne)
-eventRouter.delete("/", eventController.deleteOne)
+eventRouter.put("/:id", eventController.updateOne)
+eventRouter.delete("/:id", eventController.deleteOne)
 
 export default eventRouter

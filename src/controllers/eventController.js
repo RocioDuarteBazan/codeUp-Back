@@ -26,7 +26,6 @@ const eventCotroller = {
     },
 
     async deleteOne(req, res) {
-        console.log(req.params.id);
         const event = await eventService.deleteOne(req.params.id) 
         if (!event) throw new CustomError("No se pudo actualizar eliminar")
         httpResponse(res, 200, "Evento eliminado")
