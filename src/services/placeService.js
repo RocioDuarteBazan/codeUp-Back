@@ -15,6 +15,16 @@ const placeService = {
     async createOne(data) {
         const newPlace = await placeModel.create(data)
         return newPlace
+    },
+
+    async updateOne(id, data){
+        const newPlace = await placeModel.findOneAndUpdate({ _id: id }, data, { new: true })
+        return newPlace
+    },
+
+    async deleteOne(id){
+        const place = await placeModel.findByIdAndDelete({ _id: id })
+        return place
     }
 }
 

@@ -13,10 +13,23 @@ const placeController = {
         const newPlace = await placeService.createOne(req.body)
         if ( !newPlace ) throw new CustomError( "No se puedo crear el evento", 400 )
         httpResponse(res, 200, newPlace)
+    },
+    async updateOne(req, res) {
+        const newPlace = await placeService.updateOne(req.params.id, req.body)
+        if (!newPlace) throw new CustomError("No se pudo actualizar el lugar")
+        httpResponse(res, 200, newPlace)
+    },
+
+    async deleteOne(req, res) {
+        const place = await placeService.deleteOne(req.params.id) 
+        if (!place) throw new CustomError("No se pudo actualizar eliminar")
+        httpResponse(res, 200, "Lugar eliminado")
     }
 }
 
 export default {
     getAll: catched(placeController.getAll),
-    createOne: catched(placeController.createOne)
+    createOne: catched(placeController.createOne),
+    updateOne: catched(placeController.updateOne),
+    deleteOne: catched(placeController.deleteOne)
 }

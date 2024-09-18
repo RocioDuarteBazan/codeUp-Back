@@ -5,5 +5,7 @@ const placeRouter = express.Router()
 
 placeRouter.get("/", placeController.getAll)
 placeRouter.post("/", placeController.createOne)
+placeRouter.put("/:id", placeController.updateOne)
+placeRouter.delete("/:id", placeController.deleteOne)
 
 export default placeRouter
