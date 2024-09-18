@@ -1,6 +1,12 @@
-function catched(fn){
-    return (req, res, next) => {
-        fn(req, res).catch(err => next ( err ))
+function catched(funct){
+    return (request, response, next) => {
+        try {
+            funct(request, response)
+        }
+        catch (err) {
+            next ( err )
+        }
+        // funct(request, response).catch(err => next ( err ))
     }
 }
 

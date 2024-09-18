@@ -1,28 +1,22 @@
 import placeService from "../services/placeService.js";
+import catched from "../utils/catched.js";
+import httpResponse from "../utils/httpResponse.js";
+import CustomError from "../utils/customErrors.js";
 
-export const placeController = {
+
+const placeController = {
     async getAll(req, res) {
-        try {
-            const places = await placeService.getAllPlace()
-            res.status(200).json({ places })
-        } catch (error) {
-            console.log(error);
-            res.status(400).json({ error })
-
-        }
-
+        const places = await placeService.getAllPlace()
+        httpResponse(res, 200, places)
     },
-
-    async createOne(req, res){
-        try {
-            const newPlace = placeService.createOne( req.body )
-            if ( !newPlace ) throw new Error( "No se puedo crear el evento" )
-            res.status(200).json({ status:true, newPlace })
-
-        } catch (error) {
-            res.status(400).json({error})
-        }
+    async createOne(req, res) {
+        const newPlace = await placeService.createOne(req.body)
+        if ( !newPlace ) throw new CustomError( "No se puedo crear el evento", 400 )
+        httpResponse(res, 200, newPlace)
     }
 }
 
-export default placeController
+export default {
+    getAll: catched(placeController.getAll),
+    createOne: catched(placeController.createOne)
+}

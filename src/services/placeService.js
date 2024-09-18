@@ -1,43 +1,20 @@
 import placeModel from "../models/place.js";
+import CustomError from "../utils/customErrors.js";
 
 const placeService = {
     async getAllPlace() {
-        try {
-            const places = await placeModel.find()
-            return places
-        } catch (error) {
-            return []
-        }
+        const places = await placeModel.find()
+        return places
     },
 
-    async getOnePlaceByName(name){
-        try {
-            const place = await placeModel.findOne( { nombre: name })
-            return place
-        } catch (error) {
-            []
-        }
-    },
-
-    async getOnePlaceByName(name) {
-        try {
-            const place = await placeModel.findOne({ nombre: name })
-            return place
-        } catch (error) {
-            []
-        }
-    },
+    // async getOnePlaceByName(name) {
+    //     const place = await placeModel.findOne({ nombre: name })
+    //     return place
+    // },
 
     async createOne(data) {
-        try {
-            const place = await this.getOnePlaceByName(data.name)
-            if (place) throw new Error("El lugar ya esta registrado")
-            const newPlace = await placeModel.create(data)
-            return newPlace
-
-        } catch (error) {
-            return false
-        }
+        const newPlace = await placeModel.create(data)
+        return newPlace
     }
 }
 
