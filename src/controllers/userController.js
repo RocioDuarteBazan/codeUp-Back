@@ -4,6 +4,8 @@ import catched from "../utils/catched.js"
 import httpResponse from "../utils/httpResponse.js"
 import userDTO from "../DTO/userDTO.js"
 
+import jwt from "jsonwebtoken"
+
 const userCotroller = {
     async signUp(req, res) {
         const data = req.body
@@ -14,7 +16,8 @@ const userCotroller = {
         }
 
         const newUser = await userService.create(data)
-        const userResponse = userDTO( newUser )
+        const token = jwt.sign( { email: newUser.email }, process.env.SECRET_KEY, { expiresIn: "1h" } )
+        const userResponse = userDTO( newUser, token )
         httpResponse(res, 201, userResponse )
     },
     async login(req, res) {
@@ -30,12 +33,21 @@ const userCotroller = {
             throw new CustomError("Email o contraseña son incorrectos", 401)
         }
 
-        const userResponse = userDTO( emailExist )
+        const token = jwt.sign( { email: emailExist.email }, process.env.SECRET_KEY, { expiresIn: "1h" } )
+        const userResponse = userDTO(emailExist, token )
+        httpResponse(res, 201, userResponse)
+    },
+
+
+    async loginWithToken(req, res){
+        const token = req.headers.authorization.split("")[1]
+        const userResponse = userDTO(req.user, token )
         httpResponse(res, 201, userResponse)
     }
 }
 
 export default {
     signUp: catched(userCotroller.signUp),
-    login: catched(userCotroller.login)
+    login: catched(userCotroller.login),
+    loginWithToken: catched(userCotroller.loginWithToken)
 } 

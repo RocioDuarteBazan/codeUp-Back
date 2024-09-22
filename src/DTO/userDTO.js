@@ -1,14 +1,15 @@
-function userDTO( user ) {
-
+function userDTO(user, token) {
     return {
-        "_id": user._id,
-        "name": user.name,
-        "lastname": user.lastname,
-        "email": user.email,
-        "age": user.age,
-        "role": user.role
+        data: {
+            "_id": user._id,
+            "name": user.name,
+            "lastname": user.lastname,
+            "email": user.email,
+            "age": user.age,
+            "role": user.role
+        },
+        "token": token
     }
-
 }
 
 export default userDTO
