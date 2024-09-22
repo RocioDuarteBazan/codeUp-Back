@@ -1,39 +1,42 @@
-import { Schema, model } from "mongoose"
+import { Schema, model, Types } from "mongoose"
 
 const eventSchema = new Schema({
-  // Nombre del evento, campo obligatorio
   name: {
     type: String,
     required: true,
     unique: true
   },
-  // Fecha del evento, campo obligatorio
   date: {
     type: Date,
     required: true
   },
-  // Referencia obligatoria a un documento del modelo "Place"
   place: {
-    type: String,
-    required: true
-    //type: mongoose.Schema.Types.ObjectId, (VER EL WORKSHOP DE RELACIONES)
-    //ref: 'Place', 
-    //required: true 
+    type: Types.ObjectId,
+    ref: 'place',
+    required: true,
   },
-  // URL o ruta de la foto del evento, campo opcional
   photo: {
     type: String
   },
-  // Descripción del evento, campo obligatorio
   description: {
     type: String,
     required: true
   },
-  // Edad mínima requerida para asistir, campo obligatorio
+  // attendees: [{
+  //   type: String,
+  //   type: Types.ObjectId,
+  //   ref: 'user',
+  // }],
   minimumAge: {
     type: Number,
     required: true
   },
+  // organizer: {
+  //   type: String,
+  //   type: Types.ObjectId,
+  //   ref: 'user',
+  //   required: true
+  // },
 
 })
 

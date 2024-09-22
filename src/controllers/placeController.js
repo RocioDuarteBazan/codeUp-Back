@@ -9,6 +9,8 @@ const placeController = {
         const places = await placeService.getAllPlace()
         httpResponse(res, 200, places)
     },
+
+
     async createOne(req, res) {
         const newPlace = await placeService.createOne(req.body)
         if ( !newPlace ) throw new CustomError( "No se puedo crear el evento", 400 )
@@ -31,5 +33,6 @@ export default {
     getAll: catched(placeController.getAll),
     createOne: catched(placeController.createOne),
     updateOne: catched(placeController.updateOne),
-    deleteOne: catched(placeController.deleteOne)
+    deleteOne: catched(placeController.deleteOne),
+    getByEvent: catched(placeController.getByEvent)    
 }

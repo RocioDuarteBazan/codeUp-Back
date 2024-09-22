@@ -6,15 +6,20 @@ const placeService = {
         const places = await placeModel.find()
         return places
     },
+    
 
-    // async getOnePlaceByName(name) {
+    // a,sync getOnePlaceByName(name) {
     //     const place = await placeModel.findOne({ nombre: name })
     //     return place
     // },
 
     async createOne(data) {
-        const newPlace = await placeModel.create(data)
-        return newPlace
+        try {
+            const newPlace = await placeModel.create(data)
+            return newPlace
+        } catch (error) {
+            throw new CustomError(error.message, 400);
+        }
     },
 
     async updateOne(id, data){

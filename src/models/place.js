@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose"
+import { Schema, model, Types } from "mongoose"
 
 const placeSchema = new Schema({
     // Nombre del lugar, campo obligatorio
@@ -20,10 +20,10 @@ const placeSchema = new Schema({
     },
 
     // // Array de referencias a documentos del modelo Evento
-    // date: [{
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: 'Event'
-    // }],
+    events: [{
+        type: Types.ObjectId,
+        ref: 'event'
+    }],
 
     // Capacidad máxima del lugar, campo obligatorio
     occupancy: {

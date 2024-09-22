@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose"
+import { Schema, model, Types } from "mongoose"
 
 const userSchema = new Schema({
     name: {
@@ -31,11 +31,11 @@ const userSchema = new Schema({
         type: String
     },
 
-    // Array de referencias a documentos del modelo Evento
-    // events: [{
-    //     type: Schema.Types.ObjectId,
-    //     ref: 'Event'
-    // }],
+    //Array de referencias a documentos del modelo Evento
+    events: [{
+        type: Types.ObjectId,
+        ref: 'event'
+    }],
     
     role: {
         type: String,

@@ -12,6 +12,11 @@ const eventCotroller = {
         httpResponse(res, 200, events)
     },
 
+    async getByPlace(req, res){
+        const placeId = req.params.place
+        const event = await eventService.getByPlace(placeId)
+        httpResponse(res, 200, event)
+    },
 
     async createOne(req, res) {
         const newEvent = await eventService.createOne(req.body)
@@ -37,5 +42,6 @@ export default {
     getAll: catched(eventCotroller.getAll),
     createOne: catched(eventCotroller.createOne),
     updateOne: catched(eventCotroller.updateOne),
-    deleteOne: catched(eventCotroller.deleteOne)
+    deleteOne: catched(eventCotroller.deleteOne),
+    getByPlace: catched(eventCotroller.getByPlace)
 }
