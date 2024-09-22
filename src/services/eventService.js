@@ -7,6 +7,13 @@ const eventService = {
             const events = await eventModel.find()
             return events
     },
+
+    async getById(placeId){
+        const validateID = validateOID(placeId)
+        if(!validateID) throw new CustomError("No existe evento con ese Id", 400)
+        return await eventModel.findById(placeId).populate({path: "place", select: "name address photo -_id"})
+    },
+
     async getByPlace(placeId){
         try {
             const validateID = validateOID(placeId)
@@ -37,7 +44,21 @@ const eventService = {
     async deleteOne(id){
         const event = await eventModel.findByIdAndDelete({ _id: id })
         return event
-    }
+    },
+    // async registerUserToEvent(eventId, userId, userAge) {
+    //     const event = await eventModel.findById(eventId).populate('attendees')
+    //     if (!event) {throw new Error('Evento no encontrado');}
+    
+    //     if (userAge < event.minimumAge) {throw new Error('No cumple con la edad mínima para registrarse en este evento');}
+    
+    //     if (event.attendees.length >= event.occupancy) {throw new Error('No hay cupos disponibles para este evento');}
+    
+    //     event.attendees.push(userId);
+    //     await event.save();
+        
+    //     return event;
+    // }
+
 }
 
 export default eventService

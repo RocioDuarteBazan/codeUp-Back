@@ -22,21 +22,21 @@ const eventSchema = new Schema({
     type: String,
     required: true
   },
-  // attendees: [{
-  //   type: String,
-  //   type: Types.ObjectId,
-  //   ref: 'user',
-  // }],
+  attendees: [{
+    type: String,
+    type: Types.ObjectId,
+    ref: 'user',
+  }],
   minimumAge: {
     type: Number,
     required: true
   },
-  // organizer: {
-  //   type: String,
-  //   type: Types.ObjectId,
-  //   ref: 'user',
-  //   required: true
-  // },
+  organizer: {
+    type: String,
+    type: Types.ObjectId,
+    ref: 'user',
+    required: true
+  },
 
 })
 
