@@ -12,8 +12,12 @@ const placeController = {
 
 
     async createOne(req, res) {
+        if (req.user.role !== 'admin') {
+            throw new CustomError("No tienes permiso para crear el lugar", 403); // Enviar error si no es admin
+        }
+
         const newPlace = await placeService.createOne(req.body)
-        if ( !newPlace ) throw new CustomError( "No se puedo crear el evento", 400 )
+        if ( !newPlace ) throw new CustomError( "No se puedo crear el lugar", 400 )
         httpResponse(res, 200, newPlace)
     },
     async updateOne(req, res) {

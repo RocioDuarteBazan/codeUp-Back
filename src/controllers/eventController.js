@@ -4,7 +4,6 @@ import httpResponse from "../utils/httpResponse.js";
 import CustomError from "../utils/customErrors.js";
 
 
-
 const eventCotroller = {
     async getAll(req, res) {
         const events = await eventService.getAllEvent()
@@ -24,6 +23,10 @@ const eventCotroller = {
     },
 
     async createOne(req, res) {
+        if (req.user.role !== 'organizer') {
+            throw new CustomError("No tienes permiso para crear eventos", 403); // Enviar error si no es organizador
+        }
+
         const newEvent = await eventService.createOne(req.body)
         if (!newEvent) throw new CustomError("No se pudo crear evento", 401)
         httpResponse(res, 200, newEvent)
@@ -71,5 +74,5 @@ export default {
     deleteOne: catched(eventCotroller.deleteOne),
     getByPlace: catched(eventCotroller.getByPlace),
     getById: catched(eventCotroller.getById),
-    register: catched(eventCotroller.register)
+    // register: catched(eventCotroller.register)
 }

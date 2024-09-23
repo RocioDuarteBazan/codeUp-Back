@@ -16,6 +16,15 @@ const userService= {
 
     controlerPassword( password, passwordHash){
         return bcrypt.compareSync(password || "", passwordHash)
+    },
+
+    async updateById(userId, data) {
+        return await userModel.findByIdAndUpdate(userId, data, { new: true });
+    },
+
+    async updatePassword(userId, newPassword) {
+        const passwordHash = bcrypt.hashSync(newPassword, 10);
+        return await userModel.findByIdAndUpdate(userId, { password: passwordHash });
     }
 }
 
